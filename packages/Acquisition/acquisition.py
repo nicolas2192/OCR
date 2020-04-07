@@ -1,15 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 import cv2
 
-import random
-import time
-
-import tensorflow as tf
-from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.layers import Dense, Flatten, Dropout, Activation, Conv2D, MaxPooling2D
-from tensorflow.keras.callbacks import TensorBoard
 
 from packages.Image_Handling.handler import black_and_white
 
@@ -22,6 +13,7 @@ def load_letters(path, letters_list, img_size=100):
 	:param img_size: Image height and width. Default 100 pixels.
 	:return: Returns a list of lists where the first element in the inner list is an image array and the second its label.
 	"""
+	print("Loading data...")
 	letters = []
 	# Looping through each letter folder
 	for let in letters_list:
@@ -36,7 +28,7 @@ def load_letters(path, letters_list, img_size=100):
 			# Saving letter image array and target into a list
 			letters.append([thresh, letters_list.index(let)])
 
-	print(f"Images read: {len(letters)}")
+	print(f"Total images: {len(letters)}")
 	return letters
 
 
@@ -49,4 +41,4 @@ def check_loaded_data(loaded_letters_list, individual_letters_list):
 	"""
 	y = [target[1] for target in loaded_letters_list]
 	res = [[letter, y.count(individual_letters_list.index(letter))] for letter in individual_letters_list]
-	print(res)
+	print("Letters break down:\n", res)
