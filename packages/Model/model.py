@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import cv2
 import os
 
 import random
@@ -102,9 +103,9 @@ def model_setup(X, y, letters_list):
 
 def plot_performance(hist, model_path="data/model"):
 	"""
-	Creates a png file with two charts. Model Loss and Accuracy
-	:param hist: Fit history results
-	:param model_path: Path where the .h5 file model will be saved to. Default: data/model
+	Creates a png Hile with two charts. Loss and Accuracy
+	:param hist: History object from the model.fit() function
+	:param model_path: Path where the PNG image will be saved to. Default: data/model
 	:return: PNG file
 	"""
 	fig, axes = plt.subplots(1, 2, figsize=(15, 5))
@@ -177,9 +178,48 @@ def load_model_h5(model_path="data/model", model_name="model"):
 		# Loading H5 file
 		print(os.path.join(model_path, f"{model_name}.h5"))
 		loaded_model = load_model(os.path.join(model_path, f"{model_name}.h5"))
-		print("Model loaded successfully")
+		print("\nModel loaded successfully")
 		return loaded_model
 	except Exception as e:
 		print(os.path.join(model_path, f"{model_name}.h5"))
-		print("Model couldn't be loaded. Did you import keras load_model function?")
+		print("\nModel couldn't be loaded. Did you import keras load_model function?")
 		exit()
+
+
+def read_letters(model, letters_to_predict, letters_list, pixels=100):
+	"""
+	:param model: Model previously loaded into memory to predict image arrays.
+	:param letters_to_predict: List of image arrays, sorted, each array represents a letter.
+	:param letters_list: Letters to analyze. Same list used before to load the images.
+	:param pixels: Image width and height. Should be the same value used when loading the images. Default 100.
+	:return: Word in a string object
+	"""
+	word = []
+
+	fig, axes = plt.subplots(1, len(letters_to_predict), figsize=(16, 4))
+	label_font = {"fontname": "Arial", "fontsize": 18}
+
+	# Analyzing each image array separately
+	for index, img in enumerate(letters_to_predict):
+		# Predicting each letter
+		let = letters_to_predict[index].astype("float32")  # array must be float32 for the resize function to work
+		let = cv2.resize(let, (pixels, pixels))
+		let = np.array(let).reshape(-1, pixels, pixels, 1)
+		pred = model.predict(let)
+		pred_index = np.argmax(pred)
+		word.append(letters_list[pred_index])
+		print(f"Letter predicted: {letters_list[pred_index]} - Precision: {pred[0][pred_index]}")
+
+		# Printing each letter into a matplotlib axis
+		axes[index].imshow(letters_to_predict[index], cmap="gray")
+		axes[index].set_title(letters_list[pred_index], fontdict=label_font)
+		axes[index].set_xlabel(pred[0][pred_index], fontdict=label_font)
+		axes[index].set_xticks([])
+		axes[index].set_yticks([])
+
+	word = "".join(word)
+
+	fig.suptitle(word, fontsize=20, y=0.9)
+	plt.savefig(f"data/prediction/{word}.png")
+
+	return word

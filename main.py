@@ -1,6 +1,7 @@
 import packages.Acquisition.terminal_cmd as ap
 import packages.Acquisition.acquisition as aq
 import packages.Model.model as ml
+import packages.Image_Handling.handler as hd
 
 # Setting up constants.
 DATA = "data/raw"
@@ -40,6 +41,13 @@ def main():
     if args.predict:
         # Loading model from a H5 file.
         loaded_model = ml.load_model_h5(model_path=MODEL_PATH, model_name=MODEL_NAME)
+
+        # Reading image and splitting its letters into image arrays
+        letters_to_predict = hd.get_word(args.image)
+
+        # Feeding the model the image arrays (letters)
+        predicted_word = ml.read_letters(loaded_model, letters_to_predict, LETS, IMG_SIZE)
+        print(f"\nYour word is: {predicted_word}")
 
     if args.train is False and args.predict is False:
         print('Type "python main.py -h" on your terminal to open the help menu')

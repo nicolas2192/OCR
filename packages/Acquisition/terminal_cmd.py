@@ -7,8 +7,8 @@ def terminal_parser():
 						help="If called, loads data from data folder, trains the model and saves it as a h5 file.")
 	parser.add_argument("-p", "--predict", action="store_true",
 						help="If called, loads a previously trained model and analyses whatever image was passed using the -i flag")
-	parser.add_argument("-i", "--image", type=str, metavar="", default="data/test/N.png",
-						help="Image to analyse. Example images can be found at data/test")
+	parser.add_argument("-i", "--image", type=str, metavar="", default="data/test/n.jpeg",
+						help="Image to analyse. Example images can be found at data/test. This flag must be used along with predict")
 
 	return parser.parse_args()
 
