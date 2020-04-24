@@ -6,7 +6,7 @@ import packages.Dictionary.meaning as rp
 from silence_tensorflow import silence_tensorflow
 
 # Setting up constants.
-DATA = "data/ImageGenerator"
+DATA = "data/alphabet"
 LETS = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 IMG_SIZE = 100
 MODEL_PATH = "data/model"

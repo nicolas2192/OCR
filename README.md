@@ -96,7 +96,7 @@ Overall performance:
 26000/26000 - 85s 3ms/sample - loss: 0.0032 - accuracy: 0.9992
 
 <p align="center">
-  <img width="1500" height="500" src="data/model/model_full26_1000.png.png">
+  <img width="750" height="250" src="data/model/model_full26_1000.png">
 </p>
 
 Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily added to improve performance.
@@ -223,8 +223,7 @@ This script uses keras data augmantation function to generate 1000 images from 4
     ├── README.md
     ├── main.py
     ├── readme
-    │   ├── ironhacklogo.png
-    │   └── pdf_result.png
+    │   └── readme_images
     ├── packages
     │   ├── Acquisition
     │   |   ├── acquisition.py
@@ -239,11 +238,11 @@ This script uses keras data augmantation function to generate 1000 images from 4
         ├── logs
         │   └── Malaria-CNN-1585423128
         ├── model
-        |   ├── model.h5
+        |   ├── model_full26_1000.h5
         |   ├── ModelSummary.txt
-        │   └── TrainingStats.txt
+        |   └── model_full26_1000.png
         ├── prediction
-        │   └── IRONHACK.png
+        │   └── PYTHON.png
         ├── alphabet
         |   ├── A
         |   ├── B
@@ -253,7 +252,7 @@ This script uses keras data augmantation function to generate 1000 images from 4
         |   ├── Y
         │   └── Z
         └── test
-            └── ironhack.png
+            └── python.jpeg
 ```
 
 ## :star: Acknowledgements
