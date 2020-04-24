@@ -1,26 +1,46 @@
-# Malaria_Detection CNN
+# OCR Optical Character Recognition
 
-## :boom: Malaria-infected cell detection. Convolutional Neural Network
+## :boom: Handwritten Text Recognition. Convolutional Neural Network
 
-This project's idea came from the desire to apply deep learning knowledge into a real-life problem. This Neural Network goal is to determine whether a cell has been infected by Malaria. Cell's diagnosis is delivered in a pdf file next to the original cell image.
+IronHack Data Analytics Bootcamp Final Project. 
+
+This python script main goal is to read a handwritten word, connect to the Oxford Dictionary API return its meaning.
 
 ## :computer: Technology stack
 Wrote in python 3. Main modules:
 
-**OpenCV** -> Image reading and handling
+**OpenCV** -> Image reading and processing
 
 **TensorFlow** -> Model training and prediction
 
+Some additional modules used in this script: Matplotlib, Requests, NumPy.
+
+## :camera: Image handling
+
+OpenCV is used to scan and process handwritten text. This word is break down into letters and then passed one by one to model predict function to predict each letter individually. 
+
+Improve prediction accuracy by uploading pictures with great contrast, dark letters on light color backgrounds. Go to data/test for some examples and get and idea of what images should be used with this model. 
+
+As a first step, the original image is cropped to remove unwanted noise at the edges, then it is passed to a threshold function and gets its colors inverted. Finally, contours are located using the findContour function and split into an array of individual letters. A step by step process visualization is shown below.
+
+<p align="center">
+  <img width="926" height="331" src="readme/steps.png">
+</p>
+
+<p align="center">
+  <img width="928" height="390" src="readme/prediction.png">
+</p>
+
 ## :microscope: Model Overview and Flowchart
 
-Our task is accomplished using a 3 layers Convolutional Neural Network (CNN)
+Our model will be trained using 3 Conv2D layers.
 
-Each of the 3 layers has 64 units and a kernel of size 3x3. The activation process is done using a Rectified Linear Unit (RELU). After each convolutional layer comes a pooling layer of size 2x2. Optimizer; "adam". Loss; "Binary Crossentropy".
-The fitting process iterate through 10 epochs, takes a batch size of 32 and has a validation split of 0.2.
+Each of the 3 layers has 64 units and a kernel of size 3x3. The activation process is done using a Rectified Linear Unit (RELU). After each convolutional layer comes a pooling layer of size 2x2 as well as a 0.2 dropout. As optimizer we will use "adam" and "Categorical Crossentropy" as loss function. 
+The fitting process iterates through 6 epochs, takes a batch size of 32 and has a validation split of 0.2.
 
-Tensorboard was used to compare different models taking the one that best performed. All training run logs are saved to data/logs.
+Tensorboard was used to compare different models taking the one that best performed. Training run logs are saved to data/logs.
 
-The training was done using 6.000 colored images of the same dimension 130x130. It was evenly split into 3.000 Parasitized images and 3.000 Uninfected images. After training, model loss and accuracy were 0.14 and 0.95 respectively.
+The training was done using 800 grayscale images per letter, totallig 20.800 images (800 x 26 letters). All images were resized to 100x100. The training process returned a loss and accuracy of 0.14 and 0.95 respectively.
 
 <p align="center">
   <img width="866" height="195" src="readme/flowchart.png">
@@ -30,7 +50,7 @@ The training was done using 6.000 colored images of the same dimension 130x130. 
 
 ### Fitting
 
-Model's name: Malaria-CNN-1585423128
+Model's name:  8888888888888888888888888888
 
 Model: "sequential"
 
@@ -85,11 +105,12 @@ Epoch 10/10 -
 
 6000/6000  - 27s 5ms/sample - loss: 0.1421 - accuracy: 0.9588
 
-Performance could be increased by training the same model with all 27.558 available images. Since tensorboard functionality is already implemented, additional tweaks could be easily added to improve performance.
-## :wrench: Configuration
-Install python and mandatory modules
+Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily added to improve performance.
 
-If you are using the anaconda distribution. Run the following command to create a new environment named malaria_env
+## :wrench: Configuration
+Install python and mandatory dependendencies listed in requirements files. 
+
+If you are using the anaconda distribution. Run the following command to create a new environment named 888888888
 
 ```
 conda env create -f requirements.yml
@@ -99,64 +120,111 @@ conda env create -f requirements.yml
 
 ## :snake: Running the main.py script
 
-Running main.py on your terminal alone won't get you any results. You should use one or a combination of the following flags:
+Just running main.py on your terminal won't get you any results. You should use one or a combination of the following flags:
 
-**Training** -t or --train: trains the model using all data found in the data/raw folder. Once trained, model weights and parameters are saved in the data/model folder as a model.h5 file.
+**Training** -t or --train: trains the model using data found in the data/alphabet folder. Once trained, model weights and parameters are saved in the data/model folder as a model.h5 file.
 
 Terminal command `python main.py -t`
 
-**Predicting Images** -p or --predict: loads a previously trained model and analyzes a cell's image. Diagnosis will be print to the terminal. If no image is selected, it will analyze Parasitized-2.png (default image example). This and 9 more image examples can be found in the data/test folder.
+**Predicting Images** -p or --predict: loads a previously trained model and analyzes an image. Predictions will be print to the terminal. If no image is selected, it will analyze ironhack.png (default image example).
 
 Terminal command: `python main.py -p`
 
 Terminal result:
 ```
-Model loaded successfully -> model.h5
-Image loaded successfully
-The following image: data/test/Parasitized-2.png was categorized as: Parasitized
+Model loaded successfully!
+Contours found: 8
+Contours split: 8
+(132, 152) Area: 20064
+(82, 75) Area: 6150
+(78, 79) Area: 6162
+(77, 98) Area: 7546
+(150, 99) Area: 14850
+(85, 90) Area: 7650
+(92, 74) Area: 6808
+(89, 88) Area: 7832
+
+Predicted Letter: I - Precision: 6/7
+Predicted Letter: R - Precision: 6/7
+Predicted Letter: O - Precision: 6/7
+Predicted Letter: N - Precision: 6/7
+Predicted Letter: H - Precision: 6/7
+Predicted Letter: A - Precision: 6/7
+Predicted Letter: C - Precision: 6/7
+Predicted Letter: K - Precision: 6/7
+
+Your word is: IRONHACK
 ```
 
 **Image Selection** -i or --image: selects an image file. This command should be used alongside -p. Picking an image is mandatory if this flag is used.
 
-Terminal command: `python main.py -pi data/test/Uninfected-5.png`
+Terminal command: `python main.py -pi data/test/python.jpeg`
 
 Terminal result:
 ```
-Model loaded successfully -> model.h5
-Image loaded successfully
-The following image: data/test/Uninfected-5.png was categorized as: Uninfected
+Model loaded successfully!
+Contours found: 6
+Contours split: 6
+(186, 106) Area: 19716
+(185, 100) Area: 18500
+(173, 115) Area: 19895
+(171, 117) Area: 20007
+(131, 114) Area: 14934
+(141, 134) Area: 18894
+
+Predicted Letter: P - Precision: 6/7
+Predicted Letter: Y - Precision: 6/7
+Predicted Letter: T - Precision: 3/7
+Predicted Letter: H - Precision: 6/7
+Predicted Letter: O - Precision: 6/7
+Predicted Letter: N - Precision: 6/7
+
+Your word is: PYTHON
+
 ```
 
-**PDF Report** -r or --report: generates a pdf file and saves it to data/predictions. This command should be used alongside -pi or -p.
+**Dictionary Search** -s or --search: Connects to the Oxford dictionary API and returns the word meaning. This command should be used alongside -pi or -p. Note that for this command to work, you should have an oxford API account and its credentials placed into a .env file. Check the .env_example file for more details.
 
-Terminal command: `python main.py -pri data/test/Uninfected-3.png`
+Terminal command: `python main.py -pi data/test/python.jpeg`
 
 Terminal result:
 ```
-Model loaded successfully -> model.h5
-Image loaded successfully
-The following image: data/test/Uninfected-3.png was categorized as: Uninfected
-Image saved as a pdf at data/predictions/Uninfected-3-3.pdf
+Model loaded successfully!
+Contours found: 6
+Contours split: 6
+(186, 106) Area: 19716
+(185, 100) Area: 18500
+(173, 115) Area: 19895
+(171, 117) Area: 20007
+(131, 114) Area: 14934
+(141, 134) Area: 18894
+Predicted Letter: P - Precision: 6/7
+Predicted Letter: Y - Precision: 6/7
+Predicted Letter: T - Precision: 5/7
+Predicted Letter: H - Precision: 6/7
+Predicted Letter: O - Precision: 6/7
+Predicted Letter: N - Precision: 5/7
+
+Your word is: PYTHON
+
+MEANING:
+A large heavy-bodied nonvenomous snake occurring throughout the old world tropics, killing prey by constriction and asphyxiation.
 ```
-
-PDF screenshot: 
-
-<p align="center">
-  <img width="400" height="400" src="readme/pdf_result.png">
-</p>
 
 
 ## :information_source: Data set info
 
-Data set can be found here: [Malaria data set](https://www.kaggle.com/iarunava/cell-images-for-detecting-malaria "Kaggle Data Set")
+All original letters used to train the model were handwritten by me.
 
-It contains a total of 27.558 images split evenly in two categories: Parasitized and Uninfected
+This script uses keras data augmantation function to generate 800 images from 40 original ones. This image generation process is repeated per each letter so we end up with 20.800 images (800 x 26 Letters)
 
 
 ## :file_folder: Folder structure
 ```
-└── Malaria_Detection
+└── OCR
     ├── .gitignore
+    ├── .env_example
+    ├── requirements.yml
     ├── requirements.txt
     ├── README.md
     ├── main.py
@@ -169,38 +237,34 @@ It contains a total of 27.558 images split evenly in two categories: Parasitized
     │   │   └── terminal_cmd.py
     │   ├── Model
     │   |   └── model.py
-    │   ├── Reporting
-    │   |   └── reporting.py
-    │   └── Wrangling
-    │       └── fix_data.py
+    │   ├── Image_Handling
+    │   |   └── handler.py
+    │   └── Dictionary
+    │       └── meaning.py
     └── data
-        ├── binary
         ├── logs
         │   └── Malaria-CNN-1585423128
         ├── model
         |   ├── model.h5
         |   ├── ModelSummary.txt
         │   └── TrainingStats.txt
-        ├── predictions
-        │   └── Parasitized-2-1.pdf
-        ├── raw
-        |   ├── Parasitized
-        │   └── Uninfected
+        ├── prediction
+        │   └── IRONHACK.png
+        ├── alphabet
+        |   ├── A
+        |   ├── B
+        |   ├── C
+        |   ├── ... (26 folders)
+        |   ├── X
+        |   ├── Y
+        │   └── Z
         └── test
-            ├── Parasitized-1.png
-            ├── Parasitized-2.png
-            ├── Parasitized-3.png
-            ├── Parasitized-4.png
-            ├── Parasitized-5.png
-            ├── Uninfected-1.png
-            ├── Uninfected-2.png
-            ├── Uninfected-3.png
-            ├── Uninfected-4.png
-            └── Uninfected-5.png
+            └── ironhack.png
 ```
 
 ## :star: Acknowledgements
-<img align="left" width="40" height="40" src="readme/ironhacklogo.png">
+<img align="left" width="50" height="50" src="readme/ironhacklogo.png">
+
 
 [IronHack](https://www.ironhack.com/en "IronHack main webpage")
 

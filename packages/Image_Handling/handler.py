@@ -10,7 +10,8 @@ def black_and_white(image, threshold=120):
     :return: Input image in a black gray scale.
     """
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    thresh = cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)[1]
+    gblur = cv2.GaussianBlur(gray, (5, 5), 0)
+    thresh = cv2.threshold(gblur, threshold, 255, cv2.THRESH_BINARY)[1]
     kernel = np.ones((2, 2))
     closing = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
     return closing
@@ -55,7 +56,7 @@ def find_contours(image):  # former get_letters
             roi = image[y - e: y + h + e, x - e: x + w + e]
             to_analyze.append([roi, x])  # [individual letter, X position]
 
-    print(f"Letters split: {len(to_analyze)}")
+    print(f"Contours split: {len(to_analyze)}")
     return to_analyze
 
 
@@ -101,14 +102,14 @@ def prep_letters(to_analyze):
 
 def get_word(img_path):
     """
-    Function that assemble all previous 4 functions
+    Function that assembles all previous 4 functions
     :param img_path: Image to analyze.
-    :return: List. Each item is an image array ( letters )
+    :return: List. Each item is an image array (letters)
     """
     # Exit the code if the image is not found
     img = cv2.imread(img_path)
     if img is None:
-        print(f"Image not found in path: {img_path}")
+        print(f"Image not found in path: {img_path}. Check image name and try again!")
         exit()
 
     # Cropping image sides to remove possible noise or unwanted contours.
