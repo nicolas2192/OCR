@@ -40,70 +40,64 @@ The fitting process iterates through 6 epochs, takes a batch size of 32 and has 
 
 Tensorboard was used to compare different models taking the one that best performed. Training run logs are saved to data/logs.
 
-The training was done using 800 grayscale images per letter, totallig 20.800 images (800 x 26 letters). All images were resized to 100x100. The training process returned a loss and accuracy of 0.14 and 0.95 respectively.
+The training was done using 1000 grayscale images per letter, totallig 26.000 images (1000 x 26 letters). All images were resized to 100x100. The training process returned a loss and accuracy of 0.0032 and 0.9992 respectively.
 
 <p align="center">
-  <img width="866" height="195" src="readme/flowchart.png">
+  <img width="920" height="214" src="readme/flowchart.png">
 </p>
 
 ## :chart_with_upwards_trend: Model Stats
 
 ### Fitting
 
-Model's name:  8888888888888888888888888888
+Model's name: OCR-CNN-1587768650
 
 Model: "sequential"
 
 | Layer (type)                 | Output Shape              | Param # | 
 | ---------------------------- | ------------------------- | ------- |
-| conv2d (Conv2D)              | (None, 128, 128, 64)      | 1792    |
-| max_pooling2d (MaxPooling2D) | (None, 64, 64, 64)        | 0       |
-| conv2d_1 (Conv2D)            | (None, 62, 62, 64)        | 36928   | 
-| max_pooling2d_1 (MaxPooling2 | (None, 31, 31, 64)        | 0       | 
-| conv2d_2 (Conv2D)            | (None, 29, 29, 64)        | 36928   | 
-| max_pooling2d_2 (MaxPooling2 | (None, 14, 14, 64)        | 0       | 
-| flatten (Flatten)            | (None, 12544)             | 0       | 
-| dense (Dense)                | (None, 1)                 | 12545   | 
+| conv2d (Conv2D)              | (None, 98, 98, 64)        | 640     |
+| max_pooling2d (MaxPooling2D) | (None, 49, 49, 64)        | 0       |
+| dropout (Dropout)            | (None, 49, 49, 64)        | 0       |
+| conv2d_1 (Conv2D)            | (None, 47, 47, 64)        | 36928   | 
+| max_pooling2d_1 (MaxPooling2 | (None, 23, 23, 64)        | 0       |
+| dropout_1 (Dropout)          | (None, 23, 23, 64)        | 0       |
+| conv2d_2 (Conv2D)            | (None, 21, 21, 64)        | 36928   | 
+| max_pooling2d_2 (MaxPooling2 | (None, 10, 10, 64)        | 0       |
+| dropout_2 (Dropout)          | (None, 10, 10, 64)        | 0       | 
+| flatten (Flatten)            | (None, 6400)              | 0       | 
+| dense (Dense)                | (None, 26)                | 166426  | 
 
-Total params: 88,193, Trainable params: 88,193, Non-trainable params: 0
+Total params: 240,922, Trainable params: 240,922, Non-trainable params: 0
 
-### Training
+### Training and performance
 
-Train on 4800 samples, validate on 1200 samples
+Train on 20800 samples, validate on 5200 samples
 
-Epoch 1/10 -
-4800/4800  - 66s 14ms/sample - loss: 0.6873 - accuracy: 0.5437 - val_loss: 0.6781 - val_accuracy: 0.5308
+Epoch 1/6
+20800/20800 - 255s 12ms/sample - loss: 0.4394 - accuracy: 0.8712 - val_loss: 0.0335 - val_accuracy: 0.9906
 
-Epoch 2/10 -
-4800/4800  - 67s 14ms/sample - loss: 0.6752 - accuracy: 0.5794 - val_loss: 0.6690 - val_accuracy: 0.6000
+Epoch 2/6
+20800/20800 - 252s 12ms/sample - loss: 0.0299 - accuracy: 0.9908 - val_loss: 0.0186 - val_accuracy: 0.9948
 
-Epoch 3/10 -
-4800/4800  - 66s 14ms/sample - loss: 0.5142 - accuracy: 0.7406 - val_loss: 0.2955 - val_accuracy: 0.8967
+Epoch 3/6
+20800/20800 - 252s 12ms/sample - loss: 0.0159 - accuracy: 0.9950 - val_loss: 0.0232 - val_accuracy: 0.9927
 
-Epoch 4/10 -
-4800/4800  - 65s 14ms/sample - loss: 0.2591 - accuracy: 0.9127 - val_loss: 0.2958 - val_accuracy: 0.9367
+Epoch 4/6
+20800/20800 - 253s 12ms/sample - loss: 0.0137 - accuracy: 0.9962 - val_loss: 0.0118 - val_accuracy: 0.9962
 
-Epoch 5/10 -
-4800/4800  - 66s 14ms/sample - loss: 0.2284 - accuracy: 0.9240 - val_loss: 0.2841 - val_accuracy: 0.9367
+Epoch 5/6
+20800/20800 - 257s 12ms/sample - loss: 0.0125 - accuracy: 0.9962 - val_loss: 0.0103 - val_accuracy: 0.9973
 
-Epoch 6/10 -
-4800/4800  - 65s 14ms/sample - loss: 0.2408 - accuracy: 0.9146 - val_loss: 0.2588 - val_accuracy: 0.9242
+Epoch 6/6
+20800/20800 - 262s 13ms/sample - loss: 0.0089 - accuracy: 0.9971 - val_loss: 0.0093 - val_accuracy: 0.9979
 
-Epoch 7/10 -
-4800/4800  - 65s 14ms/sample - loss: 0.2040 - accuracy: 0.9319 - val_loss: 0.2698 - val_accuracy: 0.9200
+Overall performance: 
+26000/26000 - 85s 3ms/sample - loss: 0.0032 - accuracy: 0.9992
 
-Epoch 8/10 -
-4800/4800  - 66s 14ms/sample - loss: 0.1943 - accuracy: 0.9323 - val_loss: 0.2508 - val_accuracy: 0.9392
-
-Epoch 9/10 -
-4800/4800  - 66s 14ms/sample - loss: 0.1585 - accuracy: 0.9463 - val_loss: 0.2200 - val_accuracy: 0.9283
-
-Epoch 10/10 -
-4800/4800  - 66s 14ms/sample - loss: 0.1415 - accuracy: 0.9471 - val_loss: 0.2224 - val_accuracy: 0.9383
-
-### Model performance
-
-6000/6000  - 27s 5ms/sample - loss: 0.1421 - accuracy: 0.9588
+<p align="center">
+  <img width="1500" height="500" src="data/model/model_full26_1000.png.png">
+</p>
 
 Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily added to improve performance.
 
@@ -216,7 +210,7 @@ A large heavy-bodied nonvenomous snake occurring throughout the old world tropic
 
 All original letters used to train the model were handwritten by me.
 
-This script uses keras data augmantation function to generate 800 images from 40 original ones. This image generation process is repeated per each letter so we end up with 20.800 images (800 x 26 Letters)
+This script uses keras data augmantation function to generate 1000 images from 40 original ones. This image generation process is repeated per each letter so we end up with 26.000 images (1000 x 26 Letters)
 
 
 ## :file_folder: Folder structure
