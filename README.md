@@ -96,7 +96,7 @@ Overall performance:
 26000/26000 - 85s 3ms/sample - loss: 0.0032 - accuracy: 0.9992
 
 <p align="center">
-  <img width="750" height="250" src="data/model/model_full26_1000.png">
+  <img width="800" height="400" src="data/model/model_full26_1000.png">
 </p>
 
 Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily added to improve performance.
