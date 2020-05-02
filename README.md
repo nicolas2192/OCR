@@ -9,19 +9,19 @@ This python script main goal is to read a handwritten word, connect to the Oxfor
 ## :computer: Technology stack
 Written in python 3. Main modules:
 
-**OpenCV** -> Image reading and processing
+**OpenCV** -> Image reading and processing.
 
-**TensorFlow** -> Model training and prediction
+**TensorFlow** -> Model training and prediction.
 
 Some additional modules used in this script: Matplotlib, Requests, NumPy.
 
 ## :camera: Image handling
 
-OpenCV is used to scan and process handwritten text. The word is broken down into letters and then passed one by one to the model predict function to determine each letter individually. 
+OpenCV is used to scan and process handwritten text. The word is broken down into letters and then passed one by one to the model predict function to determine each letter individually.
 
-Improve prediction accuracy by uploading pictures with high contrast, e.g. dark letters on light backgrounds. Go to data/test for some examples and get an idea of how images should look like.
+Prediction accuracy could be improved by uploading pictures with high contrast, e.g. dark letters on light backgrounds. Go to data/test for image examples.
 
-As a first step, the original image is cropped to remove unwanted noise at the edges, then it is passed to a threshold function and gets its colors inverted. Finally, contours are located using the findContour function and split into an array of individual letters. Step-by-step process visualization is shown below.
+As a first step, the original image is cropped to remove unwanted noise at the edges, then it is passed through a threshold function, and lastly, its colors are inverted. Contours are located using the findContour function and split into an array of individual letters. Step-by-step process visualization is shown below.
 
 <p align="center">
   <img width="926" height="331" src="readme/steps.png">
@@ -40,7 +40,7 @@ The fitting process iterates through 6 epochs, takes a batch size of 32 and has 
 
 Tensorboard was used to compare different models taking the one that best performed. Training run logs are saved to data/logs.
 
-The training was done using 1000 grayscale images per letter, totalling 26.000 images (1000 x 26 letters). All images were resized to 100x100. The training process returned a loss and accuracy of 0.0032 and 0.9992 respectively.
+The training was done using 1000 grayscale images per letter, totalling 26.000 images (1000 x 26 letters). All images were resized to 100x100 pixels. The training process returned a loss and accuracy of 0.0032 and 0.9992 respectively.
 
 <p align="center">
   <img width="920" height="214" src="readme/flowchart.png">
@@ -99,12 +99,12 @@ Overall performance:
   <img width="1267" height="546" src="data/model/model_full26_1000.png">
 </p>
 
-Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily added to improve performance.
+Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily measured.
 
 ## :wrench: Configuration
-Install python and mandatory dependendencies listed in requirements files. 
+Install python 3.7 and mandatory dependencies listed in requirements file. 
 
-If you are using the anaconda distribution. Run the following command to create a new environment named 888888888
+If you are using the anaconda distribution. Run the following command to create a new environment named "ocr"
 
 ```
 conda env create -f requirements.yml
@@ -114,7 +114,7 @@ conda env create -f requirements.yml
 
 ## :snake: Running the main.py script
 
-Just running main.py on your terminal won't get you any results. You should use one or a combination of the following flags:
+Running main.py on your terminal won't get you anywhere. You should use one or a combination of the following flags:
 
 **Training** -t or --train: trains the model using data found in the data/alphabet folder. Once trained, model weights and parameters are saved in the data/model folder as a model.h5 file.
 
@@ -150,7 +150,7 @@ Predicted Letter: K - Precision: 6/7
 Your word is: IRONHACK
 ```
 
-**Image Selection** -i or --image: selects an image file. This command should be used alongside -p. Picking an image is mandatory if this flag is used.
+**Image Selection** -i or --image: selects an image file. This command should be used alongside -p. Picking an image is mandatory if this flag is to be used.
 
 Terminal command: `python main.py -pi data/test/python.jpeg`
 
@@ -256,10 +256,10 @@ This script uses keras data augmantation function to generate 1000 images from 4
 ```
 
 ## :star: Acknowledgements
-<img align="left" width="50" height="50" src="readme/ironhacklogo.png">
+<img align="left" width="25" height="25" src="readme/ironhacklogo.png">
 
 
 [IronHack](https://www.ironhack.com/en "IronHack main webpage")
 
 ## :love_letter: Contact info
-Any doubt? Advice?  Drop me a line! :smirk:
+Doubts? Advice?  Drop me a line! :smirk:
