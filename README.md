@@ -2,12 +2,12 @@
 
 ## :boom: Handwritten Text Recognition. Convolutional Neural Network
 
-IronHack Data Analytics Bootcamp Final Project. 
+**IronHack Data Analytics Bootcamp Final Project.** 
 
-This python script main goal is to read a handwritten word, connect to the Oxford Dictionary API return its meaning.
+This python script main goal is to read a handwritten word, connect to the Oxford Dictionary API and return its meaning.
 
 ## :computer: Technology stack
-Wrote in python 3. Main modules:
+Written in python 3. Main modules:
 
 **OpenCV** -> Image reading and processing
 
@@ -17,11 +17,11 @@ Some additional modules used in this script: Matplotlib, Requests, NumPy.
 
 ## :camera: Image handling
 
-OpenCV is used to scan and process handwritten text. This word is break down into letters and then passed one by one to model predict function to predict each letter individually. 
+OpenCV is used to scan and process handwritten text. The word is broken down into letters and then passed one by one to the model predict function to determine each letter individually. 
 
-Improve prediction accuracy by uploading pictures with great contrast, dark letters on light color backgrounds. Go to data/test for some examples and get and idea of what images should be used with this model. 
+Improve prediction accuracy by uploading pictures with high contrast, e.g. dark letters on light backgrounds. Go to data/test for some examples and get an idea of how images should look like.
 
-As a first step, the original image is cropped to remove unwanted noise at the edges, then it is passed to a threshold function and gets its colors inverted. Finally, contours are located using the findContour function and split into an array of individual letters. A step by step process visualization is shown below.
+As a first step, the original image is cropped to remove unwanted noise at the edges, then it is passed to a threshold function and gets its colors inverted. Finally, contours are located using the findContour function and split into an array of individual letters. Step-by-step process visualization is shown below.
 
 <p align="center">
   <img width="926" height="331" src="readme/steps.png">
@@ -35,12 +35,12 @@ As a first step, the original image is cropped to remove unwanted noise at the e
 
 Our model will be trained using 3 Conv2D layers.
 
-Each of the 3 layers has 64 units and a kernel of size 3x3. The activation process is done using a Rectified Linear Unit (RELU). After each convolutional layer comes a pooling layer of size 2x2 as well as a 0.2 dropout. As optimizer we will use "adam" and "Categorical Crossentropy" as loss function. 
+Each of the 3 layers has 64 units and a kernel of size 3x3. The activation process is done using a Rectified Linear Unit (RELU). After each convolutional layer comes a pooling layer of size 2x2 as well as a 0.2 dropout. Optimizer: "adam", Loss: "Categorical Crossentropy".
 The fitting process iterates through 6 epochs, takes a batch size of 32 and has a validation split of 0.2.
 
 Tensorboard was used to compare different models taking the one that best performed. Training run logs are saved to data/logs.
 
-The training was done using 1000 grayscale images per letter, totallig 26.000 images (1000 x 26 letters). All images were resized to 100x100. The training process returned a loss and accuracy of 0.0032 and 0.9992 respectively.
+The training was done using 1000 grayscale images per letter, totalling 26.000 images (1000 x 26 letters). All images were resized to 100x100. The training process returned a loss and accuracy of 0.0032 and 0.9992 respectively.
 
 <p align="center">
   <img width="920" height="214" src="readme/flowchart.png">
@@ -96,7 +96,7 @@ Overall performance:
 26000/26000 - 85s 3ms/sample - loss: 0.0032 - accuracy: 0.9992
 
 <p align="center">
-  <img width="800" height="400" src="data/model/model_full26_1000.png">
+  <img width="1267" height="546" src="data/model/model_full26_1000.png">
 </p>
 
 Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily added to improve performance.

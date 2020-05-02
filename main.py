@@ -55,11 +55,8 @@ def main():
         print(f"\nYour word is: {predicted_word}\n")
 
         if args.search:
-            if predicted_word == "POLLAS":
-                print(f"MEANING:\nPedro's favorite debugging tool.")
-            else:
-                definition = rp.meaning(predicted_word)
-                print(f"MEANING:\n{definition}")
+            definition = rp.meaning(predicted_word)
+            print(f"MEANING:\n{definition}")
 
     if args.train is False and args.predict is False:
         print('Type "python main.py -h" on your terminal to open the help menu')
