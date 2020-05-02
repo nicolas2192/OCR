@@ -96,7 +96,7 @@ Overall performance:
 26000/26000 - 85s 3ms/sample - loss: 0.0032 - accuracy: 0.9992
 
 <p align="center">
-  <img width="1267" height="546" src="data/model/model_full26_1000.png">
+  <img width="1267" height="400" src="data/model/model_full26_1000.png">
 </p>
 
 Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily measured.
@@ -202,7 +202,8 @@ Predicted Letter: N - Precision: 5/7
 Your word is: PYTHON
 
 MEANING:
-A large heavy-bodied nonvenomous snake occurring throughout the old world tropics, killing prey by constriction and asphyxiation.
+A large heavy-bodied nonvenomous snake occurring throughout the old world tropics,
+killing prey by constriction and asphyxiation.
 ```
 
 
