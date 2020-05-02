@@ -102,7 +102,7 @@ Overall performance:
 Performance could be increased by training the same model with more original images. Since tensorboard functionality is already implemented, additional tweaks could be easily measured.
 
 ## :wrench: Configuration
-Install python 3.7 and mandatory dependencies listed in requirements file. 
+Install python 3.7 and mandatory dependencies listed in the requirements file. 
 
 If you are using the anaconda distribution. Run the following command to create a new environment named "ocr"
 
